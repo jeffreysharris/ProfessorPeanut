@@ -418,20 +418,20 @@
       "hash": "ddfcd9be6cef3c8bb0263139937a05092e4a3fe9"
     },
     {
-      "path": "app/template.ProfessorPeanut.js",
+      "path": "app/template.Professor_Peanut.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/template.ProfessorPeanut.js?e119ff8df948cfe8167f49eb28794995a594841c",
+      "url": "/template.Professor_Peanut.js?e119ff8df948cfe8167f49eb28794995a594841c",
       "size": 551,
       "hash": "e119ff8df948cfe8167f49eb28794995a594841c"
     },
     {
-      "path": "app/ProfessorPeanut.js",
+      "path": "app/Professor_Peanut.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/ProfessorPeanut.js?a4ef596255404350be2cc45303caea02f934cd17",
+      "url": "/Professor_Peanut.js?a4ef596255404350be2cc45303caea02f934cd17",
       "size": 497,
       "hash": "a4ef596255404350be2cc45303caea02f934cd17"
     },
