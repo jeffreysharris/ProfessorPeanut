@@ -1,6 +1,6 @@
 {
   "format": "javascript-image-pre1",
-  "arch": "os",
+  "arch": "os.osx.x86_64",
   "load": [
     {
       "sourceMap": "packages/underscore.js.map",
@@ -222,6 +222,59 @@
       "path": "packages/meteor-platform.js"
     },
     {
+      "sourceMap": "packages/accounts-ui.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/accounts-ui.js"
+    },
+    {
+      "node_modules": "npm/npm-bcrypt/node_modules",
+      "sourceMap": "packages/npm-bcrypt.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/npm-bcrypt.js"
+    },
+    {
+      "sourceMap": "packages/accounts-base.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/accounts-base.js"
+    },
+    {
+      "sourceMap": "packages/sha.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/sha.js"
+    },
+    {
+      "sourceMap": "packages/srp.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/srp.js"
+    },
+    {
+      "node_modules": "npm/email/node_modules",
+      "sourceMap": "packages/email.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/email.js"
+    },
+    {
+      "sourceMap": "packages/accounts-password.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/accounts-password.js"
+    },
+    {
+      "node_modules": "npm/aldeed:simple-schema/node_modules",
+      "sourceMap": "packages/aldeed_simple-schema.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/aldeed_simple-schema.js"
+    },
+    {
+      "sourceMap": "packages/mongo-livedata.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/mongo-livedata.js"
+    },
+    {
+      "sourceMap": "packages/aldeed_collection2.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/aldeed_collection2.js"
+    },
+    {
       "sourceMap": "packages/session.js.map",
       "sourceMapRoot": "packages",
       "path": "packages/session.js"
@@ -235,7 +288,15 @@
       "path": "packages/global-imports.js"
     },
     {
-      "path": "app/Professor_Peanut.js"
+      "path": "app/lib/common.js"
+    },
+    {
+      "path": "app/ProfessorPeanut.js"
+    },
+    {
+      "sourceMap": "packages/service-configuration.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/service-configuration.js"
     }
   ]
 }

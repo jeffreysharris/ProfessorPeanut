@@ -20,5 +20,8 @@ Match = Package.check.Match;
 _ = Package.underscore._;
 Random = Package.random.Random;
 EJSON = Package.ejson.EJSON;
+Accounts = Package['accounts-base'].Accounts;
+SimpleSchema = Package['aldeed:simple-schema'].SimpleSchema;
+MongoObject = Package['aldeed:simple-schema'].MongoObject;
 HTML = Package.htmljs.HTML;
 

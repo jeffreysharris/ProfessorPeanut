@@ -21,5 +21,8 @@ jQuery = Package.jquery.jQuery;
 Random = Package.random.Random;
 EJSON = Package.ejson.EJSON;
 LaunchScreen = Package['launch-screen'].LaunchScreen;
+Accounts = Package['accounts-base'].Accounts;
+SimpleSchema = Package['aldeed:simple-schema'].SimpleSchema;
+MongoObject = Package['aldeed:simple-schema'].MongoObject;
 HTML = Package.htmljs.HTML;
 
