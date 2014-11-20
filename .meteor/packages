@@ -6,7 +6,9 @@
 meteor-platform
 autopublish
 insecure
-accounts-ui
 accounts-password
 aldeed:collection2
+accounts-base
+bootstrap-3
+accounts-ui-bootstrap-3
 
