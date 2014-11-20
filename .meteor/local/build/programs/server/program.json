@@ -222,11 +222,6 @@
       "path": "packages/meteor-platform.js"
     },
     {
-      "sourceMap": "packages/accounts-ui.js.map",
-      "sourceMapRoot": "packages",
-      "path": "packages/accounts-ui.js"
-    },
-    {
       "node_modules": "npm/npm-bcrypt/node_modules",
       "sourceMap": "packages/npm-bcrypt.js.map",
       "sourceMapRoot": "packages",
@@ -273,6 +268,16 @@
       "sourceMap": "packages/aldeed_collection2.js.map",
       "sourceMapRoot": "packages",
       "path": "packages/aldeed_collection2.js"
+    },
+    {
+      "sourceMap": "packages/bootstrap-3.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/bootstrap-3.js"
+    },
+    {
+      "sourceMap": "packages/accounts-ui-bootstrap-3.js.map",
+      "sourceMapRoot": "packages",
+      "path": "packages/accounts-ui-bootstrap-3.js"
     },
     {
       "sourceMap": "packages/session.js.map",
