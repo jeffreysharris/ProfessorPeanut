@@ -1,0 +1,39 @@
+<template name="home">
+	<h1>PROFILES</h1>
+</template>
+
+<template name="register">
+	<form class="form" role="form">
+		<div class="form-group">
+			<label for="register-username">Username</label>
+			<input type="text" id="register-username" class="form-control" placeholder="Desired username">
+		</div>
+		<div class="form-group">
+			<label for="register-email">Email Address</label>
+			<input type="email" id="register-email" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="register-password">Password</label>
+			<input type="password" id="register-password" class="form-control" placeholder="Password">
+		</div>
+		<button type="submit" class="btn btn-default">Register</button>
+	</form>
+</template>
+
+<template name="login">
+	<form class="form" role="form">
+		<div class="form-group">
+			<label for="login-email">Email Address</label>
+			<input type="email" id="login-email" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="login-password">Password</label>
+			<input type="password" id="login-password" class="form-control" placeholder="Password">
+		</div>
+			<button type="submit" class="btn">Login</button>
+	</form>
+</template>
+<template name="dashboard">
+	<p>Logged In</p>
+	<p><a href="#" class="logout">Logout</a></p>
+</template>

@@ -2,10 +2,17 @@
   <title>ProfessorPeanut</title>
 </head>
 
-<body>
+<template name="layout">
+	{{> nav}}
+	<div class = "container">
+		{{> yield}}
+	</div>
+</template>
+
+<template name="nav">
 	<div class="navbar navbar-default" role="navigation">
 	    <div class="navbar-header">
-	        <a class="navbar-brand" href="#">Project name</a>
+	        <a class="navbar-brand" href="#">Peanuts</a>
 	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 	            <span class="sr-only">Toggle navigation</span>
 	            <span class="icon-bar"></span>
@@ -17,11 +24,20 @@
 	        <ul class="nav navbar-nav">
 	            <li class="active"><a href="#">Link</a></li>
 	        </ul>
-	        <ul class="nav navbar-nav navbar-right">
-	            {{> loginButtons }} <!-- here -->
+	        <ul class="nav pull-right">
+	        	<li class="dropdown">
+	        		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Sign-Up/In <span class="caret"></span></a>
+        			<div class="dropdown-menu pull-right" role="menu" style="padding:2em;">
+	        			{{#if currentUser}}
+		        			{{> dashboard}}
+		        		{{else}}
+		        			{{> login}}
+		        			<p>Create Account</p>
+		        		{{/if}}
+	        		</div>
+		        </li>
 	        </ul>
 	    </div>
 	</div>
-	<h1>Professor Peanut</h1>
-
-</body>
+	<!--END NAVBAR-->
+</template>
