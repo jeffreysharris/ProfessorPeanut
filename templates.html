@@ -1,3 +1,39 @@
+<template name="nav">
+	<div class="navbar navbar-default" role="navigation">
+	    <div class="navbar-header">
+	        <a class="navbar-brand" href="{{pathFor 'home'}}">Peanuts</a>
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	    </div>
+	    <div class="navbar-collapse collapse">
+	        <ul class="nav navbar-nav">
+	            <li class="active"><a href="#">Link</a></li>
+	        </ul>
+	        <ul class="nav pull-right">
+	        	<li class="dropdown">
+	        		<a href="#" data-toggle="dropdown" id="signupindropdowntoggle" class="dropdown-toggle">Sign-Up/In <span class="caret"></span></a>
+        			<div class="dropdown-menu pull-right" id="signupin" role="menu">
+	        			{{#if currentUser}}
+		        			{{> dashboard}}
+		        		{{else}}
+		        			{{> login}}
+		        		{{/if}}
+	        		</div>
+		        </li>
+	        </ul>
+	    </div>
+	</div>
+	<!--END NAVBAR-->
+</template>
+
+<template name="home">
+	<h1>PROFILES</h1>
+</template>
+
 <template name="register">
 	<div class="col-md-8 col-md-offset-2">
 	<form class="form" role="form">
@@ -88,4 +124,26 @@
 		<button type="submit" class="btn btn-default">Register</button>
 	</form>
 	</div>
+</template>
+
+<template name="login">
+	<form class="form" role="form" style="margin: 0px;">
+		<div class="form-group">
+			<label for="login-email">Email Address</label>
+			<input type="email" id="login-email" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="login-password">Password</label>
+			<input type="password" id="login-password" class="form-control" placeholder="Password">
+		</div>
+		<span>
+			<button type="submit" class="btn">Login</button>
+			<a class="pull-right" id="createaccount" href = "{{pathFor 'register'}}">Create Account</a>
+		</span>
+	</form>
+</template>
+
+<template name="dashboard">
+	<p>Logged In as {{fullName}}</p>
+	<p><a href="#" class="logout">Logout</a></p>
 </template>
