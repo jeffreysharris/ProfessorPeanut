@@ -9,4 +9,9 @@ if (Meteor.isClient) {
 			return Meteor.user().profile.name.first;
 		}
 	});
+	Template.requests.helpers({
+		requests: function(){
+			return Requests.find();
+		}
+	});
 };

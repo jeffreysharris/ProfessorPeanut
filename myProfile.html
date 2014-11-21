@@ -1,6 +1,15 @@
 <template name = "myProfile">
 	{{#if currentUser}}
-		<h1>Hello, {{firstName}}.</h1>
+	<div class="container">
+		<div class="page-header">
+			<h1>Hello, {{firstName}}.</h1>
+			<p>Current balance: ${{currentUser.profile.balance}}</p>
+			<p>Requests: {{#each currentUser.profile.postedRequests.type}}{{/each}}</p>
+		</div>
+		<div>
+			{{> requests}}
+		</div>
+	</div>
 	{{else}}
 		{{> splash}}
 	{{/if}}

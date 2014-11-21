@@ -1,2 +1,7 @@
 <template name="requests">
+	{{#requestBlock}}
+		{{#each requests}}
+			{{> requestBlockRow}}
+		{{/each}}
+	{{/requestBlock}}
 </template>
