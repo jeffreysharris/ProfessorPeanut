@@ -94,12 +94,4 @@ Schema.User = new SimpleSchema({
     }
 });
 
-<<<<<<< HEAD:collections/Users.js
-=======
-//Not sure if this totally correct. It seems like it will overwrite any collection that currently exists,
-//but I'm not yet sure of how to access already-existing collections.
-var Requests = new Mongo.Collection("requests");
-var Transactions = new Mongo.Collection("transactions");
-
->>>>>>> 4ae5b63da9dbf9283ad57a3ee25add95d5175059:lib/common.js
 Meteor.users.attachSchema(Schema.User);
