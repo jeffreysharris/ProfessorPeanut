@@ -1,54 +1,5 @@
 var Schema = {};
 
-Schema.Transaction = new SimpleSchema({
-	amount: {
-		type: Number,
-		label: "Amount"
-	},
-	donorID: {
-		type: String,
-		label: "Donor"
-	},
-	recipientID: {
-		type: String,
-		label: "Recipient"
-	},
-	requestID: {
-		type: String,
-		label: "Request"
-	},
-});
-
-Schema.Request = new SimpleSchema({
-	title: {
-		type: String,
-		label: "Title",
-		max: 200
-	},
-	description: {
-		type: String,
-		label: "Description",
-		max: 1000
-	},
-	currentFunding: {
-		type: Number,
-		label: "Current Funding",
-		defaultValue: 0
-	},
-	targetFunding: {
-		type: Number,
-		label: "Funding Goal"
-	},
-	requestorID: {
-		type: String,
-		label: "Requestor"
-	},
-	transactionIDs: {
-		type: [String],
-		label: "Transactions"
-	}
-});
-
 Schema.UserProfile = new SimpleSchema({
 	name: {
 		type: Object,
@@ -90,11 +41,11 @@ Schema.UserProfile = new SimpleSchema({
 		type: Object,
 		optional: true
 	},
-		"completedTransactions.Receipts": {
+		"completedTransactions.receipts": {
 			type: [String],
 			defaultValue: []
 		},
-		"completedTransactions.Donations": {
+		"completedTransactions.donations": {
 			type: [String],
 			defaultValue: []
 		},
@@ -143,9 +94,4 @@ Schema.User = new SimpleSchema({
     }
 });
 
-var Requests = new Mongo.Collection("requests");
-var Transactions = new Mongo.Collection("transactions");
-
 Meteor.users.attachSchema(Schema.User);
-Requests.attachSchema(Schema.Request);
-Transactions.attachSchema(Schema.Transactions);
