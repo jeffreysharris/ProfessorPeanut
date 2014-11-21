@@ -43,6 +43,7 @@ if (Meteor.isClient) {
 			var email_var = template.find("#login-email").value;
 			var password_var = template.find("#login-password").value;
 			Meteor.loginWithPassword(email_var, password_var);
+			$('#signupindropdowntoggle').dropdown('toggle');
 		},
 		'click #createaccount': function(e, template){
 			$('#signupindropdowntoggle').dropdown('toggle');
@@ -53,11 +54,6 @@ if (Meteor.isClient) {
 			e.preventDefault();
 			Meteor.logout();
 		}
-	});
-	Template.dashboard.helpers({
-		fullName: function(){
-			return Meteor.user().profile.name.first + " " + Meteor.user().profile.name.last;
-		},
 	});
 };
 
