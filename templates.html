@@ -15,13 +15,12 @@
 	        </ul>
 	        <ul class="nav pull-right">
 	        	<li class="dropdown">
-	        		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Sign-Up/In <span class="caret"></span></a>
-        			<div class="dropdown-menu pull-right" role="menu" style="padding:2em;">
+	        		<a href="#" data-toggle="dropdown" id="signupindropdowntoggle" class="dropdown-toggle">Sign-Up/In <span class="caret"></span></a>
+        			<div class="dropdown-menu pull-right" id="signupin" role="menu">
 	        			{{#if currentUser}}
 		        			{{> dashboard}}
 		        		{{else}}
 		        			{{> login}}
-		        			<a href = "{{pathFor 'register'}}">Create Account</a>
 		        		{{/if}}
 	        		</div>
 		        </li>
@@ -128,7 +127,7 @@
 </template>
 
 <template name="login">
-	<form class="form" role="form">
+	<form class="form" role="form" style="margin: 0px;">
 		<div class="form-group">
 			<label for="login-email">Email Address</label>
 			<input type="email" id="login-email" class="form-control" placeholder="Enter email">
@@ -137,11 +136,14 @@
 			<label for="login-password">Password</label>
 			<input type="password" id="login-password" class="form-control" placeholder="Password">
 		</div>
+		<span>
 			<button type="submit" class="btn">Login</button>
+			<a class="pull-right" id="createaccount" href = "{{pathFor 'register'}}">Create Account</a>
+		</span>
 	</form>
 </template>
 
 <template name="dashboard">
-	<p>Logged In</p>
+	<p>Logged In as {{fullName}}</p>
 	<p><a href="#" class="logout">Logout</a></p>
 </template>

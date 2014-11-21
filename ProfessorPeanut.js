@@ -13,24 +13,28 @@ if (Meteor.isClient) {
 				first: template.find('#register-first-name').value,
 				last: template.find('#register-last-name').value
 			};
-			var address_var = {
+			var address_var = [{
 				houseNumber: template.find('#register-house-number').value,
 				street: template.find('#register-street').value,
 				city: template.find('#register-city').value,
 				state: template.find('#register-state').value,
 				zip: template.find('#register-zip').value,
-			};
+			}];
 			var description_var = template.find('#register-description').value;
 
 			Accounts.createUser({
 				username: username_var,
 				email: email_var,
 				password: password_var,
-				name: name_var,
-				address: address_var,
-				description: description_var
+				profile: {
+					name: name_var,
+					address: address_var,
+					description: description_var
+				},
 			});
-			console.log("Submitted")
+			//after account creation, log in user and redirect to homepage
+			Meteor.loginWithPassword(email_var, password_var);
+			Router.go('home');
 		}
 	});
 	Template.login.events({
@@ -39,7 +43,9 @@ if (Meteor.isClient) {
 			var email_var = template.find("#login-email").value;
 			var password_var = template.find("#login-password").value;
 			Meteor.loginWithPassword(email_var, password_var);
-			console.log("Submitted")
+		},
+		'click #createaccount': function(e, template){
+			$('#signupindropdowntoggle').dropdown('toggle');
 		}
 	});
 	Template.dashboard.events({
@@ -47,6 +53,11 @@ if (Meteor.isClient) {
 			e.preventDefault();
 			Meteor.logout();
 		}
+	});
+	Template.dashboard.helpers({
+		fullName: function(){
+			return Meteor.user().profile.name.first + " " + Meteor.user().profile.name.last;
+		},
 	});
 };
 
