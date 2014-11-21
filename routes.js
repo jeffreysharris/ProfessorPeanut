@@ -7,8 +7,5 @@ Router.map(function() {
 	this.route('home', {
 		path: '/',
 	});
-	this.route('register', {
-		path: '/register',
-		template: 'register',
-	});
+	this.route('register');
 });
