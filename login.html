@@ -1,0 +1,16 @@
+<template name="login">
+	<form class="form" role="form" style="margin: 0px;">
+		<div class="form-group">
+			<label for="login-email">Email Address</label>
+			<input type="email" id="login-email" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="login-password">Password</label>
+			<input type="password" id="login-password" class="form-control" placeholder="Password">
+		</div>
+		<span>
+			<button type="submit" class="btn">Login</button>
+			<a class="pull-right" id="createaccount" href = "{{pathFor 'register'}}">Create Account</a>
+		</span>
+	</form>
+</template>
