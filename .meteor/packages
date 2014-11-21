@@ -8,7 +8,8 @@ autopublish
 insecure
 accounts-password
 aldeed:collection2
-accounts-base
 bootstrap-3
-accounts-ui-bootstrap-3
+stylus
+handlebars
+iron:router
 
