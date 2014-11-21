@@ -12,6 +12,14 @@ Schema.Request = new SimpleSchema({
 		label: "Description",
 		max: 1000
 	},
+	startDate: {
+		type: Date,
+		label: "Starting Date"
+	},
+	endDate: {
+		type: Date,
+		label: "Ending Date"
+	},
 	currentFunding: {
 		type: Number,
 		label: "Current Funding",

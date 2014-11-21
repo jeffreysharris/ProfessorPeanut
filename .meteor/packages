@@ -9,7 +9,7 @@ insecure
 accounts-password
 aldeed:collection2
 bootstrap-3
-stylus
-handlebars
 iron:router
+handlebars
+stylus
 
