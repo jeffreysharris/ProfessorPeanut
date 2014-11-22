@@ -14,22 +14,22 @@ Schema.UserProfile = new SimpleSchema({
 			regEx: /^[a-zA-Z-]{2,25}$/,
 		},
 	address: {
-		type: [Object],
+		type: Object,
 		optional: true
 	},
-		"address.$.houseNumber": {
+		"address.houseNumber": {
 			type: Number
 		},
-		"address.$.street": {
+		"address.street": {
 			type: String
 		},
-		"address.$.city": {
+		"address.city": {
 			type: String
 		},
-		"address.$.state": {
+		"address.state": {
 			type: String
 		},
-		"address.$.zip": {
+		"address.zip": {
 			type: Number
 		},
 	description: {
@@ -56,8 +56,9 @@ Schema.UserProfile = new SimpleSchema({
 	},
 	balance: {
 		type: Number,
+		decimal: true,
 		label: "Account balance, donations vs. receipts",
-		defaultValue: 0,
+		defaultValue: 0.00,
 		optional: true
 	},
 });

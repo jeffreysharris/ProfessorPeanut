@@ -1,40 +1,61 @@
-var getRandomUserID = function (){
-	var rand = Math.random();
-	var result = Meteor.users.findOne( { "profile.random" : { $gte : rand } } );
-	if ( result === null ) {
-	   	result = Meteor.users.findOne( { "profile.random" : { $lte : rand } } );
-	}
-	return result._id;
-};
-
-var populateNullRequests = function (){
-	//if there are any requests with null requestorIDs, pull a random user and assign them to the request.
-	if(Requests.find({ requestorID : null}).count() === 0 ){
-		console.log("No unpaired requests in meteor.reqests!");
-	}else{
-		console.log("Attaching " + Requests.find({ requestorID : null}).count() + "new requests to users from Meteor.users");
-	 	Requests.update(
-	 		{requestorID : null},
-	 		{$set: { requestorID : getRandomUserID() }},
-	 		{ validationContext: "updateForm",
-	 		  multi: true },
-	 		function(error, result){
-				//console.log(error);
-				//console.log(result);
-	 		});
-	 }
-};
-
 Meteor.startup(function (){
 
-	if( Meteor.users.find().count() === 0 )
-		console.log('No Users, use : \n mongoimport --db meteor --collection users --file public/seed_users.json --dbpath .meteor/local/db --jsonArray');
+	Meteor.users.remove({});
+	Requests.remove({});
 
-	if( Requests.find().count() === 0 )
-		console.log('No Request History, use : \n mongoimport --db meteor --collection requests --file public/seed_requests.json --dbpath .meteor/local/db --jsonArray');
+	if( Meteor.users.find().count() === 0 ){
+		console.log('No Users! Bootstrapping data from private/seed_users.json');
+
+		//import data from seed_users and add it to the collection
+		var seedUsers = JSON.parse(Assets.getText("seed_users.json"));
+		for(var i = 0; i < seedUsers.entries.length; i++){
+			Meteor.users.insert(
+				seedUsers.entries[i], 
+				{ validate: false },
+				function( errors, result ){
+					if( errors ){
+						console.log( errors );
+					}else{
+						//console.log( result );
+					}
+				});
+		}
+	}
+
+	if( Requests.find().count() === 0 ){
+		console.log('No Request History! Bootstrapping data from private/seed_requests.json');
+
+		//import data from seed_requests and add it to the collection
+		var seedRequests = JSON.parse(Assets.getText("seed_requests.json"));
+		for( var i = 0; i < seedRequests.entries.length; i++ ){
+			Requests.insert(
+				seedRequests.entries[i], 
+				{ validate: false },
+				function( errors, result ){
+					if( errors ){
+						console.log( errors );
+					}else{
+						//console.log( result );
+					}
+				});
+		}
+
+		//link the imported requestsIDs with users in Meteor.users
+		Requests.update(
+		{ requestorID : null },
+		{ $set: { requestorID : getRandomDoc( Meteor.users )._id } },
+		{ validationContext: "updateForm",
+		  multi: true },
+		function( errors, result ){
+			if( errors ){
+				console.log( errors );
+			}else{
+				console.log( result );
+			}
+	 	});
+	}
 
 	if( Transactions.find().count() === 0 )
-		console.log('Transations History Empty');
+		console.log('Transactions History Empty');
 
-	populateNullRequests();
 });
