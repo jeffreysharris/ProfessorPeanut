@@ -4,6 +4,7 @@ var Schema = {};
 Schema.Transaction = new SimpleSchema({
 	amount: {
 		type: Number,
+		decimal: true,
 		label: "Amount"
 	},
 	donorID: {
@@ -20,4 +21,4 @@ Schema.Transaction = new SimpleSchema({
 	},
 });
 
-Transactions.attachSchema(Schema.Transactions);
+Transactions.attachSchema(Schema.Transaction);

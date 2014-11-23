@@ -22,11 +22,13 @@ Schema.Request = new SimpleSchema({
 	},
 	currentFunding: {
 		type: Number,
+		decimal: true,
 		label: "Current Funding",
 		defaultValue: 0
 	},
 	targetFunding: {
 		type: Number,
+		decimal: true,
 		label: "Funding Goal"
 	},
 	requestorID: {
