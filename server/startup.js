@@ -25,7 +25,7 @@ Meteor.methods({
 			title : args.title,
 			description : args.description,
 			startDate : moment().format(),
-			endDate : moment().add( duration, 'days'),
+			endDate : moment().add( args.duration, 'days'),
 			targetFunding : args.targetFunding,
 			requestorID : requestor._id,
 		};
@@ -41,7 +41,12 @@ Meteor.methods({
 								}
 							});
 
-		requestor.profile.postedRequests.push( requestID );
+		//if endDate is in the past, push to completed requests
+		if(~moment(request.endDate).fromNow().indexOf("ago")){
+			requestor.profile.postedRequests.completed.push( requestID );
+		}else{
+			requestor.profile.postedRequests.active.push( requestID );
+		}
 		Meteor.users.update(
 			{ _id : requestor._id },
 			{ $set : { "profile.postedRequests" : requestor.profile.postedRequests }},
@@ -53,19 +58,17 @@ Meteor.methods({
 					//console.log( result );
 				}
 			});
+		return requestID;
 	}
 });
 
 Meteor.startup(function (){
 
-
 	//REMOVE THESE TO RETAIN NEW DB ENTRIES
-	/*
 	console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
 	Meteor.users.remove({});
 	Requests.remove({});
 	Transactions.remove({});
-	*/
 
 	//If Users collection is empty, fill it with seed!
 	if( Meteor.users.find().count() === 0 ){
@@ -121,31 +124,23 @@ Meteor.startup(function (){
 					}
 				});
 		}
-		Requests.update(
-		{ requestorID : null },
-		{ $set: { requestorID : getRandomDoc(Meteor.users)._id } },
-		{ validationContext: "updateForm",
-		  multi: true },
-		function( error, result ){
-			if( error ){
-				console.log( error );
-			}else{
-				//console.log( result );
-			}
-	 	});
 
 	 	//link requests to postedRequests[] for the selected user!
 	 	var allRequests = Requests.find({}).fetch();
 	 	for (var i = 0; i < allRequests.length; i++) {
+
 	 		//get requestor and add the new request
 	 		var requestor = Meteor.users.findOne({ _id : allRequests[i].requestorID });
-	 		console.log(requestor._id);
-	 		requestor.profile.postedRequests.push( allRequests[i].requestID );
 
-	 		//commit changes to db
+			//if endDate is in the past, push to completed requests
+		 	if(~moment(allRequests[i].endDate).fromNow().indexOf("ago")){
+				requestor.profile.postedRequests.completed.push( allRequests[i]._id );
+			}else{
+				requestor.profile.postedRequests.active.push( allRequests[i]._id );
+			}
 	 		Meteor.users.update(
 	 				{ _id : requestor._id },
-	 				{ $set : { profile : requestor.profile }},
+	 				{ $set : { "profile.postedRequests" : requestor.profile.postedRequests }},
 	 				{ validationContext : "updateForm"},
 	 				function( error, result ){
 	 					if( error ){

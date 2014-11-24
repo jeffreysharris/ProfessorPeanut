@@ -50,10 +50,17 @@ Schema.UserProfile = new SimpleSchema({
 			defaultValue: []
 		},
 	postedRequests: {
-		type: [String],
-		defaultValue: [],
+		type: Object,
 		optional: true
 	},
+		"postedRequests.active": {
+			type: [String],
+			defaultValue: []
+		},
+		"postedRequests.completed": {
+			type: [String],
+			defaultValue: []
+		},
 	balance: {
 		type: Number,
 		decimal: true,
