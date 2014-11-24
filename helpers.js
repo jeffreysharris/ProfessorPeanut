@@ -8,6 +8,11 @@ if (Meteor.isClient) {
 	Template.myProfile.helpers({
 		firstName: function(){
 			return Meteor.user().profile.name.first;
+		},
+		findRequests: function(requestID){
+			var request = Requests.findOne({"_id": requestID});
+			console.log(request);
+			return request.title;
 		}
 	});
 	Template.requests.helpers({
