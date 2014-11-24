@@ -12,4 +12,5 @@ bootstrap-3
 iron:router
 handlebars
 stylus
+moment
 

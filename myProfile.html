@@ -5,6 +5,7 @@
 			<h1>Hello, {{firstName}}.</h1>
 			<p>Current balance: ${{currentUser.profile.balance}}</p>
 			<p>Requests: {{#each currentUser.profile.postedRequests.type}}{{/each}}</p>
+			<p>Transactions: </p>
 		</div>
 		<div>
 			{{> requests}}

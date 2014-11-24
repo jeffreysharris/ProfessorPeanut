@@ -1,7 +1,12 @@
 <template name="requests">
-	{{#requestBlock}}
-		{{#each requests}}
-			{{> requestBlockRow}}
-		{{/each}}
-	{{/requestBlock}}
+	<h2>Here's some requestors you might be interested in helping!</h2>
+	{{#each request}}
+		<h3>{{requestor this.requestorID}}</h3>
+		<h4>{{this.title}}</h4>
+		<p>{{this.description}}</p>
+		<p>Start: {{dateConvert this.startDate}}</p>
+		<p>End: {{dateConvert this.endDate}}</p>
+		<p>Current: ${{this.currentFunding}}</p>
+		<p>Target: ${{this.targetFunding}}</p>
+	{{/each}}
 </template>
