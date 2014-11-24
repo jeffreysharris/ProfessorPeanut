@@ -13,13 +13,13 @@ if (Meteor.isClient) {
 				first: template.find('#register-first-name').value,
 				last: template.find('#register-last-name').value
 			};
-			var address_var = [{
+			var address_var = {
 				houseNumber: template.find('#register-house-number').value,
 				street: template.find('#register-street').value,
 				city: template.find('#register-city').value,
 				state: template.find('#register-state').value,
 				zip: template.find('#register-zip').value,
-			}];
+			};
 			var description_var = template.find('#register-description').value;
 
 			Accounts.createUser({

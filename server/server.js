@@ -2,11 +2,12 @@ Meteor.startup(function (){
 
 
 	//REMOVE THESE TO RETAIN NEW DB ENTRIES
+	/*
 	console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
 	Meteor.users.remove({});
 	Requests.remove({});
 	Transactions.remove({});
-
+	*/
 
 	//If Users collection is empty, fill it with seed!
 	if( Meteor.users.find().count() === 0 ){
@@ -28,7 +29,7 @@ Meteor.startup(function (){
 		}
 	}
 
-	//If Users collection is empty, fill it with seed!
+	//If Requests collection is empty, fill it with seed!
 	if( Requests.find().count() === 0 ){
 		console.log('No Request History! Bootstrapping data from private/seed_requests.json...');
 
@@ -62,13 +63,25 @@ Meteor.startup(function (){
 					}
 				});
 		}
+		Requests.update(
+		{ requestorID : null },
+		{ $set: { requestorID : getRandomDoc(Meteor.users)._id } },
+		{ validationContext: "updateForm",
+		  multi: true },
+		function( error, result ){
+			if( error ){
+				console.log( error );
+			}else{
+				//console.log( result );
+			}
+	 	});
 
 	 	//link requests to postedRequests[] for the selected user!
 	 	var allRequests = Requests.find({}).fetch();
 	 	for (var i = 0; i < allRequests.length; i++) {
-
 	 		//get requestor and add the new request
 	 		var requestor = Meteor.users.findOne({ _id : allRequests[i].requestorID });
+	 		console.log(requestor._id);
 	 		requestor.profile.postedRequests.push( allRequests[i].requestID );
 
 	 		//commit changes to db
@@ -87,6 +100,7 @@ Meteor.startup(function (){
 	 	};
 	}
 
+	//generate transactions
 	if( Transactions.find().count() === 0 ){
 		var numTransactions = 100;
 		var maxAmount = 5.00;
@@ -94,7 +108,9 @@ Meteor.startup(function (){
 
 		for (var i = 0; i < numTransactions; i++) {
 			var request = getRandomDoc( Requests );
+			//console.log(request.requestorID);
 			var donor = getRandomDoc( Meteor.users );
+			//console.log(donor._id);
 
 			if( request.requestorID !== donor._id ){
 			doTransaction( request._id, donor._id, (Math.round((Math.random()*maxAmount)*2)/2) );

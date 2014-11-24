@@ -1,6 +1,26 @@
 <template name="requests">
-	<h2>Here's some requestors you might be interested in helping!</h2>
+	<div class="col-sm-12">
+		<h2>Here's some requestors you might be interested in helping!</h2>
+	</div>
 	{{#each request}}
+		<div class="col-sm-4" style="height: 25em;">
+			<table class="table">
+				<thead>
+					<tr>
+						<td><h3>{{requestor this.requestorID}}</h3></td>
+					</tr>
+					<tr>
+						<td><h4>{{this.title}}</h4></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><p>{{this.description}}</p></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--
 		<h3>{{requestor this.requestorID}}</h3>
 		<h4>{{this.title}}</h4>
 		<p>{{this.description}}</p>
@@ -8,5 +28,6 @@
 		<p>End: {{dateConvert this.endDate}}</p>
 		<p>Current: ${{this.currentFunding}}</p>
 		<p>Target: ${{this.targetFunding}}</p>
+		-->
 	{{/each}}
 </template>

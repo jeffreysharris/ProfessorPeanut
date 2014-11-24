@@ -4,8 +4,9 @@
 		<div class="page-header">
 			<h1>Hello, {{firstName}}.</h1>
 			<p>Current balance: ${{currentUser.profile.balance}}</p>
-			<p>Requests: {{#each currentUser.profile.postedRequests.type}}{{/each}}</p>
-			<p>Transactions: </p>
+			<p>Requests: {{#each currentUser.profile.postedRequests}}{{/each}}</p>
+			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
+			<p>Receipts: {{#each currentUser.profile.postedRequests.receipts}}{{/each}}</p>
 		</div>
 		<div>
 			{{> requests}}
@@ -13,5 +14,6 @@
 	</div>
 	{{else}}
 		{{> splash}}
+		{{> requests}}
 	{{/if}}
 </template>
