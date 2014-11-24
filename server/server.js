@@ -24,7 +24,7 @@ Meteor.methods({
 			title : args.title,
 			description : args.description,
 			startDate : moment().format(),
-			endDate : moment().add( 'months', 1 ),
+			endDate : moment().add( 1, 'months'),
 			targetFunding : args.targetFunding,
 			requestorID : requestor._id,
 		};
