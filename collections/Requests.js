@@ -23,6 +23,7 @@ Schema.Request = new SimpleSchema({
 	currentFunding: {
 		type: Number,
 		decimal: true,
+		optional: true,
 		label: "Current Funding",
 		defaultValue: 0
 	},
