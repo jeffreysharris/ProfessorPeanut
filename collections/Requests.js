@@ -37,7 +37,9 @@ Schema.Request = new SimpleSchema({
 	},
 	transactionIDs: {
 		type: [String],
-		label: "Transactions"
+		label: "Transactions",
+		optional: true,
+		defaultValue: []
 	}
 });
 
