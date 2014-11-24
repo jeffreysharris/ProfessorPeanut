@@ -6,6 +6,7 @@ Meteor.methods({
 		check(args, {
 			title: String,
 			description: String,
+			duration: Number,
 			targetFunding: Number
 		});
 
@@ -24,7 +25,7 @@ Meteor.methods({
 			title : args.title,
 			description : args.description,
 			startDate : moment().format(),
-			endDate : moment().add( 1, 'months'),
+			endDate : moment().add( duration, 'days'),
 			targetFunding : args.targetFunding,
 			requestorID : requestor._id,
 		};
