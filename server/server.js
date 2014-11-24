@@ -48,18 +48,20 @@ Meteor.startup(function (){
 		}
 
 		//link the imported requestsIDs with users in Meteor.users
-		Requests.update(
-		{ requestorID : null },
-		{ $set: { requestorID : getRandomDoc( Meteor.users )._id } },
-		{ validationContext: "updateForm",
-		  multi: true },
-		function( error, result ){
-			if( error ){
-				console.log( error );
-			}else{
-				//console.log( result );
-			}
-	 	});
+		for( var i = 0; i < Requests.find({}).count(); i++ ){
+			var randomID = getRandomDoc( Meteor.users )._id;
+			Requests.update(
+				{ requestorID : null },
+				{ $set: { requestorID : randomID } },
+				{ validationContext: "updateForm" },
+				function( error, result ){
+					if( error ){
+						console.log( error );
+					}else{
+						//console.log( result );
+					}
+				});
+		}
 
 	 	//link requests to postedRequests[] for the selected user!
 	 	var allRequests = Requests.find({}).fetch();
