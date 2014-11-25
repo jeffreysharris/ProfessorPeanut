@@ -70,7 +70,7 @@ Meteor.methods({
 	getRandomDoc : function ( collection ){
 		var rand = Math.floor( Math.random() * (collection.find().count()-1) );
 		var result = collection.findOne( {}, { skip : rand } );
-		return result;
+		return { result : result };
 	},
 
 	/**
@@ -79,7 +79,7 @@ Meteor.methods({
 	 * @return {Integer}       Number of pages to display.
 	 */
 	getPageCount : function ( limit ){
-		return Math.ceil(Requests.find({}).count()/limit);
+		return { result : Math.ceil(Requests.find({}).count()/limit) };
 	},
 
 	/**
@@ -90,14 +90,23 @@ Meteor.methods({
 	 * @param  {Number}  amount 	[amount of donation]
 	 * @return {boolean}        	[success / failure]
 	 */	
-	doTransaction : function ( requestID, amount){
+	doTransaction : function ( args, requestID, amount ){
 
-		if(this.connection){
-
+		var donor = {};
+		//find a random donor if the server called the method 
+		//(part of seeding the db)
+		if(!this.connection){ 
+				donor = Meteor.users.findOne({ _id : Meteor.call( 'getRandomDoc', Meteor.users, function(err,res){} ) });
+		}else{
+			if(this.userId){
+				donor = Meteor.users.findOne({ _id : this.userId });
+			}else{
+				throw new Meteor.Error("logged-out", 
+  									"The client must be logged in to post a request.");
+			}
 		}
 
-		var request = Requests.findOne({ _id : requestID });
-		var donor = Meteor.users.findOne({ _id : donorID });
+		var request = Requests.findOne({ _id : args.requestID });
 		var recipient = Meteor.users.findOne({ _id : request.requestorID });
 
 		//create the transaction
@@ -105,7 +114,7 @@ Meteor.methods({
 			amount : amount,
 			donorID : donorID,
 			recipientID : recipient._id,
-			requestID : requestID
+			requestID : args.requestID
 		};
 		var transactionID = Transactions.insert(	
 								transaction,
@@ -164,7 +173,6 @@ Meteor.methods({
 		 	});
 		console.log("Transaction Complete...");
 		//TODO: Check request fulfillment after donation?
-		//TODO: Handle failure (ISF, request already fulfilled, etc.)
-		return true;
+		return transactionID;
 	}
 });
