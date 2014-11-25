@@ -18,12 +18,17 @@ if (Meteor.isClient) {
 		}
 	});
 	Template.requests.helpers({
+		//number of requests to show per page
+		limit : 20,
 		request: function(){
 			//Requests.remove({});
-			var page = Meteor.subscribe('page', Session.get('currentPage'));
+			var page = Meteor.subscribe('page', Session.get('currentPage', limit));
 			var requests = Requests.find( { requestorID : { $not :  Meteor.userId()  } } );
 			//page.stop();
 			return requests;
+		},
+		pageCount : function(){
+			Meteor.call('getPageCount');
 		},
 		requestor: function(requestorID){
 			if(typeof requestorID !== null){
