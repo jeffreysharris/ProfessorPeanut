@@ -12,7 +12,25 @@ if (Meteor.isClient) {
 				targetFunding : template.find("#request_targetFund").value,
 				requestorID: Meteor.user()._id
 			}
-			Requests.insert(new_request);
+			Requests.insert(new_request, function(err, record){
+				if(err){
+					console.warn(err.message);
+				} else {
+					var dummy_array = Meteor.user().profile.postedRequests.active;
+					dummy_array.push(record);
+					Meteor.users.update({ _id : Meteor.user()._id },
+					{ $set : { "profile.postedRequests.active" : dummy_array }},
+					{ validationContext: "updateForm" },
+					function( error, result ){
+						if( error ){
+							console.warn( error );
+						}else{
+							//console.log( result );
+						}
+					}
+				)};
+			});
+			Router.go('home');
 		}
 	});
 
