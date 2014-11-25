@@ -117,6 +117,6 @@ Meteor.startup(function (){
 			doTransaction( request._id, donor._id, (Math.round((Math.random()*maxAmount)*2)/2) );
 
 			}		
-		};		
+		}
 	}
 });
