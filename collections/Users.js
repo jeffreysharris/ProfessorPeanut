@@ -89,8 +89,8 @@ Schema.User = new SimpleSchema({
         type: Boolean
     },
     createdAt: {
-        type: Date
-    },
+        type: Date,
+   },
     profile: {
         type: Schema.UserProfile,
         optional: true

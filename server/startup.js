@@ -1,10 +1,10 @@
 Meteor.startup(function (){
 
 	//REMOVE THESE TO RETAIN NEW DB ENTRIES
-	// console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
-	// Meteor.users.remove({});
-	// Requests.remove({});
-	// Transactions.remove({});
+	console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
+	Meteor.users.remove({});
+	Requests.remove({});
+	Transactions.remove({});
 
 	//If Users collection is empty, fill it with seed!
 	if( Meteor.users.find().count() === 0 ){
@@ -17,6 +17,17 @@ Meteor.startup(function (){
 				seedUsers.entries[i], 
 				{ validate: false },
 				function( error, result ){
+					if( error ){
+						console.log( error );
+					}else{
+						//console.log( result );
+					}
+				});
+			Meteor.users.update(
+				{ _id : seedUsers.entries[i]._id },
+				{ $set : { createdAt : new Date(seedUsers.entries[i].createdAt) }},
+				{ validationContext : "updateForm" },
+				function( error, result){
 					if( error ){
 						console.log( error );
 					}else{
@@ -38,7 +49,7 @@ Meteor.startup(function (){
 				{ validate: false },
 				function( error, result ){
 					if( error ){
-						console.log( errors );
+						console.log( error );
 					}else{
 						//console.log( result );
 					}

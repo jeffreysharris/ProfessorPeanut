@@ -24,8 +24,8 @@ Meteor.methods({
 			var request = {
 				title : args.title,
 				description : args.description,
-				startDate : moment().format(),
-				endDate : moment().add( args.duration, 'days'),
+				startDate : new Date(moment().format()),
+				endDate : new Date(moment().add( args.duration, 'days').format()),
 				targetFunding : args.targetFunding,
 				requestorID : requestor._id,
 			};
@@ -37,25 +37,27 @@ Meteor.methods({
 									if( error ){
 										console.log( error );
 									}else{
-										//console.log( result );
+										console.log( result );
 									}
 								});
 
+			requestor.profile.postedRequests.active.push( requestID );
 			Meteor.users.update(
 				{ _id : requestor._id },
-				{ $set : { "profile.postedRequests" : requestor.profile.postedRequests }},
+				{ $set : { "profile.postedRequests.active" : requestor.profile.postedRequests.active }},
 				{ validationContext: "updateForm" },
 				function( error, result ){
 					if( error ){
 						console.log( error );
 					}else{
-						//console.log( result );
+						console.log( result );
 					}
 				});
 			return requestID;
 		}else{
 			throw new Meteor.Error("logged-out", 
   									"The client must be logged in to post a request.");
+			console.log(": exited w/out insert");
 		}
 	}
 });
