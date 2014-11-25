@@ -4,7 +4,7 @@
 		<div class="page-header">
 			<h1>Hello, {{firstName}}.</h1>
 			<p>Current balance: ${{currentUser.profile.balance}}</p>
-			<p>Requests: {{#each currentUser.profile.postedRequests.active}}{{findRequests this}}{{/each}}</p>
+			<p>Requests: {{#each findRequests}}{{this.title}}{{/each}}</p>
 			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
 			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>
 			<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-primary">Make New Request</a></p>

@@ -9,15 +9,21 @@ if (Meteor.isClient) {
 		firstName: function(){
 			return Meteor.user().profile.name.first;
 		},
-		findRequests: function(requestID){
-			var request = Requests.findOne({"_id": requestID});
-			console.log(request);
-			return request.title;
+		findRequests: function(){
+			//Requests.remove({});
+			var myRequest = Meteor.subscribe('myRequest', Meteor.userId());
+			var requests = Requests.find({requestorID : Meteor.userId()});
+			//myRequest.stop();
+			return requests;
 		}
 	});
 	Template.requests.helpers({
 		request: function(){
-			return Requests.find({});
+			//Requests.remove({});
+			var page = Meteor.subscribe('page', Session.get('currentPage'));
+			var requests = Requests.find( { requestorID : { $not :  Meteor.userId()  } } );
+			//page.stop();
+			return requests;
 		},
 		requestor: function(requestorID){
 			if(typeof requestorID !== null){
