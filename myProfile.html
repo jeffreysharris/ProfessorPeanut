@@ -7,6 +7,7 @@
 			<p>Requests: {{#each currentUser.profile.postedRequests.active}}{{findRequests this}}{{/each}}</p>
 			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
 			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>
+			<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-primary">Make New Request</a></p>
 		</div>
 		<div>
 			{{> requests}}

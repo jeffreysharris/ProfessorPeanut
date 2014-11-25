@@ -8,4 +8,5 @@ Router.map(function() {
 		path: '/',
 	});
 	this.route('register');
+	this.route('submitRequest');
 });
