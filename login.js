@@ -1,6 +1,4 @@
 if (Meteor.isClient) {
-	/*TEMPLATE HELPERS*/
-
 	/*USER ACCOUNT CREATION, LOGIN, LOGOUT*/
 	//Should we add error checking?
 	Template.register.events({

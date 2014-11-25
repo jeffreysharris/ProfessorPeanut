@@ -24,8 +24,8 @@ Meteor.methods({
 			var request = {
 				title : args.title,
 				description : args.description,
-				startDate : moment().format(),
-				endDate : moment().add( args.duration, 'days'),
+				startDate : moment().toJSON(),
+				endDate : moment().add( args.duration, 'days').toJSON(),
 				targetFunding : args.targetFunding,
 				requestorID : requestor._id,
 			};
