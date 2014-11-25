@@ -1,5 +1,4 @@
 if (Meteor.isClient) {
-
 	Template.dashboard.helpers({
 		fullName: function(){
 			return Meteor.user().profile.name.first + " " + Meteor.user().profile.name.last;
@@ -18,17 +17,12 @@ if (Meteor.isClient) {
 		}
 	});
 	Template.requests.helpers({
-		//number of requests to show per page
-		limit : 20,
 		request: function(){
 			//Requests.remove({});
-			var page = Meteor.subscribe('page', Session.get('currentPage', limit));
+			var page = Meteor.subscribe('page', Session.get('currentPage', 20));
 			var requests = Requests.find( { requestorID : { $not :  Meteor.userId()  } } );
 			//page.stop();
 			return requests;
-		},
-		pageCount : function(){
-			Meteor.call('getPageCount');
 		},
 		requestor: function(requestorID){
 			if(typeof requestorID !== null){
