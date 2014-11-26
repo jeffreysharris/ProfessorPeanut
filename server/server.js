@@ -8,3 +8,6 @@ Meteor.publish( 'myRequest', function( userId ){
 
 //Create publish to return profile based on  userID
 //Meteor.publish('getUser')
+Meteor.publish( 'getUser', function( userId ){
+	return Meteor.users.findOne({ _id : userId });
+});

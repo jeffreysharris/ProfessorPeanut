@@ -53,11 +53,10 @@ Meteor.methods({
 						console.log( result );
 					}
 				});
-			return requestID;
+			return { result : requestID };
 		}else{
 			throw new Meteor.Error("logged-out", 
   									"The client must be logged in to post a request.");
-			console.log(": exited w/out insert");
 		}
 	},
 
@@ -67,11 +66,18 @@ Meteor.methods({
 	 * @param  {db.collection} collection [any minimongo collection]
 	 * @return {Object}            [a JSON formatted obect]
 	 */
-	getRandomDoc : function ( collection ){
-		var rand = Math.floor( Math.random() * (collection.find().count()-1) );
-		var result = collection.findOne( {}, { skip : rand } );
+	getRandomUser : function (){
+		var rand = Math.floor( Math.random() * (Meteor.users.find().count()-1) );
+		var result = Meteor.users.findOne( {}, { skip : rand } );
 		return { result : result };
 	},
+
+	getRandomRequest : function (){
+		var rand = Math.floor( Math.random() * (Requests.find().count()-1) );
+		var result = Requests.findOne( {}, { skip : rand } );
+		return { result : result };
+	},
+
 
 	/**
 	 * return the total number of pages requred to browse all content
@@ -79,6 +85,8 @@ Meteor.methods({
 	 * @return {Integer}       Number of pages to display.
 	 */
 	getPageCount : function ( limit ){
+
+		check( limit, Number );
 		return { result : Math.ceil(Requests.find({}).count()/limit) };
 	},
 
@@ -90,20 +98,20 @@ Meteor.methods({
 	 * @param  {Number}  amount 	[amount of donation]
 	 * @return {boolean}        	[success / failure]
 	 */	
-	doTransaction : function ( args, requestID, amount ){
+	doTransaction : function ( args ){
+
+		check(args, {
+			donorID: String,
+			requestID: String,
+			amount: Number
+		});
 
 		var donor = {};
-		//find a random donor if the server called the method 
-		//(part of seeding the db)
-		if(!this.connection){ 
-				donor = Meteor.users.findOne({ _id : Meteor.call( 'getRandomDoc', Meteor.users, function(err,res){} ) });
+		if( args.donorID ){
+			donor = Meteor.users.findOne({ _id : args.donorID });
 		}else{
-			if(this.userId){
-				donor = Meteor.users.findOne({ _id : this.userId });
-			}else{
-				throw new Meteor.Error("logged-out", 
+			throw new Meteor.Error("logged-out", 
   									"The client must be logged in to post a request.");
-			}
 		}
 
 		var request = Requests.findOne({ _id : args.requestID });
@@ -111,8 +119,8 @@ Meteor.methods({
 
 		//create the transaction
 		var transaction = {
-			amount : amount,
-			donorID : donorID,
+			amount : args.amount,
+			donorID : args.donorID,
 			recipientID : recipient._id,
 			requestID : args.requestID
 		};
@@ -128,7 +136,7 @@ Meteor.methods({
 								});
 
 		//update request records
-		request.currentFunding += amount;
+		request.currentFunding += args.amount;
 		request.transactionIDs.push(transactionID);
 		Requests.update(
 			{ _id : request._id },
@@ -144,7 +152,7 @@ Meteor.methods({
 
 		//update donor records
 		donor.profile.completedTransactions.donations.push(transactionID);
-		donor.profile.balance += amount;
+		donor.profile.balance += args.amount;
 		Meteor.users.update(
 			{ _id : donor._id },
 			{ $set : { profile : donor.profile } },
@@ -159,7 +167,7 @@ Meteor.methods({
 
 		//update recipient records
 		recipient.profile.completedTransactions.receipts.push(transactionID);
-		recipient.profile.balance -= amount;
+		recipient.profile.balance -= args.amount;
 		Meteor.users.update(
 			{ _id : recipient._id },
 			{ $set : { profile : recipient.profile } },
@@ -173,6 +181,6 @@ Meteor.methods({
 		 	});
 		console.log("Transaction Complete...");
 		//TODO: Check request fulfillment after donation?
-		return transactionID;
+		return { result : transactionID };
 	}
 });

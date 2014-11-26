@@ -1,12 +1,12 @@
 Meteor.startup(function (){
 
 	//REMOVE THESE TO RETAIN NEW DB ENTRIES
-/*
+
 	// console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
 	// Meteor.users.remove({});
 	// Requests.remove({});
 	// Transactions.remove({});
-*/
+
 
 	//If Users collection is empty, fill it with seed!
 	if( Meteor.users.find().count() === 0 ){
@@ -58,9 +58,11 @@ Meteor.startup(function (){
 				});
 		}
 
+		console.log("before get random user for requestor");
+
 		//link the imported requestsIDs with users in Meteor.users
 		for( var i = 0; i < Requests.find({}).count(); i++ ){
-			var randomID = getRandomDoc( Meteor.users )._id;
+			var randomID = Meteor.call( 'getRandomUser' ).result._id;
 			Requests.update(
 				{ requestorID : null },
 				{ $set: { requestorID : randomID } },
@@ -73,6 +75,8 @@ Meteor.startup(function (){
 					}
 				});
 		}
+
+		console.log("before linking requests!");
 
 	 	//link requests to postedRequests[] for the selected user!
 	 	var allRequests = Requests.find({}).fetch();
@@ -101,6 +105,8 @@ Meteor.startup(function (){
 	 			)};
 	}
 
+	console.log("before transactions");
+
 	//generate transactions
 	if( Transactions.find().count() === 0 ){
 		var numTransactions = 100;
@@ -108,15 +114,22 @@ Meteor.startup(function (){
 		console.log('No Transaction History! Generating ' + numTransactions + ' fake transactions...');
 
 		for (var i = 0; i < numTransactions; i++) {
-			var request = getRandomDoc( Requests );
-			//console.log(request.requestorID);
-			var donor = getRandomDoc( Meteor.users );
-			//console.log(donor._id);
+			var request = Meteor.call( 'getRandomRequest' ).result;
+			//console.log("request.requestorID : " + request.requestorID);
+			var donor = Meteor.call( 'getRandomUser' ).result;
+			//console.log("donor._id : " + donor._id);
 
 			if( request.requestorID !== donor._id ){
-			doTransaction( request._id, donor._id, (Math.round((Math.random()*maxAmount)*2)/2) );
+				var transactionArgs =  {donorID : donor._id, 
+							      		requestID : request._id, 
+							      		amount : (Math.round((Math.random()*maxAmount)*2)/2) };
 
-			}		
+				Meteor.call( 'doTransaction', 
+							  transactionArgs,
+							  function(err,res){
+							  	//console.log(err, res);
+							  } );
+				}		
 		}
 	}
 });
