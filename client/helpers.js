@@ -16,7 +16,7 @@ if (Meteor.isClient) {
 			return requests;
 		}
 	});
-	// Template.requests.helpers({
+	Template.requests.helpers({
 	// 	request: function(){
 	// 		//Requests.remove({});
 	// 		var page = Meteor.subscribe('page', Session.get('currentPage', 20));
@@ -24,15 +24,15 @@ if (Meteor.isClient) {
 	// 		//page.stop();
 	// 		return requests;
 	// 	},
-	// 	requestor: function(requestorID){
-	// 		if(typeof requestorID !== null){
-	// 			var user = Meteor.users.findOne({"_id": requestorID});
-	// 			if(typeof user !== null){
-	// 				var name = user.profile.name.first + " " +user.profile.name.last;
-	// 				return name;
-	// 			} else return;
-	// 		} else return;
-	// 	},
+		requestorName: function( requestorID ){
+			var requestorSub = Meteor.subscribe('getUser', requestorID);
+			if( requestorSub.ready() ){
+				var requestor = Meteor.users.findOne({ _id : requestorID });
+				return requestor.profile.name.first + " " + requestor.profile.name.last;
+			}else{
+				return "Loading...";
+			}
+		},
 	// 	dateConvert: function(date){
 	// 		if(typeof date !== null) {
 	// 			var humaneDate = moment(date).format("dddd, MMMM Do YYYY, h:mm a");
@@ -40,5 +40,5 @@ if (Meteor.isClient) {
 	// 			return humaneDate;
 	// 		} else return;
 	// 	}
-	// });
-};
+	});
+}
