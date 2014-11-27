@@ -28,3 +28,14 @@ UI.registerHelper('dateConvert', function(date){
 		return humaneDate;
 	} else return;
 });
+
+//returns name of requestor, based on requestorID
+UI.registerHelper('requestorName', function( requestorID ){
+	var requestorSub = Meteor.subscribe('getUser', requestorID);
+	if( requestorSub.ready() ){
+		var requestor = Meteor.users.findOne({ _id : requestorID });
+		return requestor.profile.name.first + " " + requestor.profile.name.last;
+	}else{
+		return "Loading...";
+	}
+});
