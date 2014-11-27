@@ -2,16 +2,22 @@
 	<div class="container">
 		<div class = "page-header">
 			<!--Change for the returned user, subscribe to 'getUser'-->
-			<h1>{{requestor}}</h1>
+			<h1>{{this.requestor.profile.name.first}}</h1>
 			<p>Current balance: ${{requestor.profile.balance}}</p>
 			<p>Requests: {{#each findRequests}}{{this.title}}{{/each}}</p>
 			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
 			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>
-			<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-primary">Make New Request</a></p>
 		</div>
-		<div class="col-sm-12">
-			<h2>title</h2>
-			<p>description</p>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h2 class="panel-title">{{this.request.title}}</h2>
+			</div>
+			<div class="panel-body">
+				<p>{{this.request.description}}</p>
+			</div>
+			<div class="panel-footer">
+				<p><a href = "{{pathFor 'donate'}}" class="btn btn-success">Donate</a></p>
+			</div>
 		</div>
 	</div>
 </template>

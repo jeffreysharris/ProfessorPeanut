@@ -9,5 +9,17 @@ Router.map(function() {
 	});
 	this.route('register');
 	this.route('submitRequest');
-	this.route('thisRequest');
+	this.route('thisRequest', {
+		path: 'requests/:_id',
+		waitOn: function(){
+			return [Meteor.subscribe('oneRequest', this.params._id), 
+				Meteor.subscribe('getUser', this.params.requestorID)];
+		},
+		data: function(){
+			console.warn(this.params.requestorID);
+			return {request  : Requests.findOne(this.params._id), 
+				requestor : Meteor.users.findOne(this.params.requestorID)}; 
+		}
+	});
+	this.route('donate');
 });

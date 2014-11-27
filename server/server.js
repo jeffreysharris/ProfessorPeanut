@@ -6,8 +6,11 @@ Meteor.publish( 'myRequest', function( userId ){
 	return Requests.find({ requestorID : userId });
 });
 
-//Create publish to return profile based on  userID
-//Meteor.publish('getUser')
+//Publish one request based on ID, to enable syncing when selecting thisRequest and direct URL of requests
+Meteor.publish('oneRequest', function( thisId){
+	return Requests.find({ _id : thisId });
+});
+
 Meteor.publish( 'getUser', function( userId ){
 	return Meteor.users.find({ _id : userId });
 });
