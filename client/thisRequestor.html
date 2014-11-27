@@ -1,9 +1,8 @@
 <template name="thisRequestor">
 	<div class="container">
 		<div class = "page-header">
-			<!--Change for the returned user, subscribe to 'getUser'-->
-			<h1>{{requestorName this.request.requestorID}}</h1>
-			<p>Current balance: ${{requestor.profile.balance}}</p>
+			<h1>{{this.profile.name.first}} {{this.profile.name.last}}</h1>
+			<p>Current balance: ${{this.profile.balance}}</p>
 			<p>Requests: {{#each findRequests}}{{this.title}}{{/each}}</p>
 			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
 			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>

@@ -1,0 +1,14 @@
+<template name="donate">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="donation_amount" class="col-sm-4 control-label">I'd like to help {{requestorName this.request.requestorID}} by giving:</label>
+				<span class="input-group col-xs-2">
+					<div class="input-group-addon">$</div>
+					<input type="number" class="form-control" id="donation_amount" placeholder="10.00"/>
+					<span class="input-group-btn">
+						<a href = "#" class="btn btn-success">Donate</a>
+					</span>
+				</span>
+		</div>
+	</form>
+</template>

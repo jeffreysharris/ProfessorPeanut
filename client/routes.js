@@ -12,10 +12,13 @@ Router.map(function() {
 	this.route('thisRequestor', {
 		path: ':requestorID',
 		waitOn: function(){
+			console.warn(this.params.requestorID);
 			return Meteor.subscribe('getUser', this.params.requestorID);
 		},
 		data: function(){
-			return Meteor.users.findOne(this.params.requestorID);
+			var thisUser = Meteor.users.findOne(this.params.requestorID);
+			console.warn(thisUser);
+			return thisUser;
 		}
 	});
 	this.route('thisRequest', {
@@ -33,5 +36,4 @@ Router.map(function() {
 				requestor : Meteor.users.findOne(this.params.requestorID)}; 
 		}
 	});
-	this.route('donate');
 });
