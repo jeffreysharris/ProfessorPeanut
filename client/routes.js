@@ -12,12 +12,12 @@ Router.map(function() {
 	this.route('thisRequestor', {
 		path: ':requestorID',
 		waitOn: function(){
-			console.warn(this.params.requestorID);
+			// console.warn(this.params.requestorID);
 			return Meteor.subscribe('getUser', this.params.requestorID);
 		},
 		data: function(){
 			var thisUser = Meteor.users.findOne(this.params.requestorID);
-			console.warn(thisUser);
+			// console.warn(thisUser);
 			return thisUser;
 		}
 	});

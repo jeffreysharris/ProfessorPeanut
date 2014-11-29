@@ -1,4 +1,7 @@
 <template name="donate">
+	{{#if donatedDep.has_donated}}
+		<div class="col-sm-12"><div class="col-sm-4" style="text-align: right; margin-bottom: 1em;"><h4>Thank you for your donation of ${{donatedDep.amt}}!</h4></div></div>
+	{{/if}}
 	<form class="form-horizontal" role="form">
 		<div class="form-group">
 			<label for="donation_amount" class="col-sm-4 control-label">I'd like to help {{requestorName this.request.requestorID}} by giving:</label>
@@ -6,7 +9,7 @@
 					<div class="input-group-addon">$</div>
 					<input type="number" class="form-control" id="donation_amount" placeholder="10.00"/>
 					<span class="input-group-btn">
-						<a href = "#" class="btn btn-success">Donate</a>
+						<button type="submit" class="btn btn-success">Donate</button>
 					</span>
 				</span>
 		</div>

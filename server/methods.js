@@ -1,3 +1,5 @@
+if (Meteor.isServer){
+
 Meteor.methods({
 	/**
 	 * Creates a new request in the 'Requests' db	
@@ -184,3 +186,4 @@ Meteor.methods({
 		return { result : transactionID };
 	}
 });
+}
