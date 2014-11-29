@@ -1,13 +1,50 @@
 <template name = "myProfile">
 	{{#if currentUser}}
 	<div class="container">
-		<div class="page-header">
-			<h1>Hello, {{firstName}}.</h1>
-			<p>Current balance: ${{currentUser.profile.balance}}</p>
-			<p>Requests: {{#each findRequests}}{{this.title}}{{/each}}</p>
-			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
-			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>
-			<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-primary">Make New Request</a></p>
+		<div class="page-header clearfix">
+			<h1 style="margin-bottom: 1em;">Hello, {{firstName}}.</h1>
+			<div class="col-sm-6">
+				<ul class = "list-group">
+					<li class="list-group-item active"><b>Your Balance</b></li>
+					<li class="list-group-item">${{currentUser.profile.balance}}</li>
+				</ul>
+				<ul class = "list-group">
+					<li class="list-group-item active"><b>Your Requests</b></li>
+						{{#each findRequests}}
+							<li class="list-group-item">${{this.targetFunding}} for <a href="{{pathFor 'thisRequest'}}">{{this.title}}</a>
+								<span class="badge">${{this.currentFunding}}</span>
+							</li>
+						{{/each}}
+				</ul>
+				<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-success"><b>Make New Request</b></a></p>
+			</div>
+			<div class="col-sm-6">
+				<ul class="list-group">
+					<li class="list-group-item active"><b>Your Reciprocity</b></li>
+					<li class="list-group-item">
+						<p><b>
+						{{#if currentUser.profile.completedTransactions.donations}}
+							Thanks!
+						{{/if}}
+						You've given to {{currentUser.profile.completedTransactions.donations.length}} people:
+						</b></p>
+						<p>{{#each currentUser.profile.completedTransactions.donations}}
+							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: green;"></span>
+						{{/each}}</p>
+					</li>
+					<li class="list-group-item">
+						<p><b>
+						{{#if currentUser.profile.completedTransactions.receipts}}
+							Show gratitude!
+						{{/if}}
+						{{currentUser.profile.completedTransactions.receipts.length}} donors answered your needs:
+						</b></p>
+						<p>{{#each currentUser.profile.completedTransactions.receipts}}
+							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: red;"></span>
+						{{/each}}</p>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div>
 			{{> requests}}
