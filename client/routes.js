@@ -29,8 +29,6 @@ Router.map(function() {
 		},
 		data: function(){
 			//console.warn(this.params.requestorID);
-			var  request  = Requests.findOne(this.params._id);
-
 			//console.warn(request);
 			return {request  : Requests.findOne(this.params._id), 
 				requestor : Meteor.users.findOne(this.params.requestorID)}; 

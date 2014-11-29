@@ -1,11 +1,43 @@
 <template name="thisRequestor">
 	<div class="container">
-		<div class = "page-header">
-			<h1>{{this.profile.name.first}} {{this.profile.name.last}}</h1>
-			<p>Current balance: ${{this.profile.balance}}</p>
-			<p>Requests: {{#each findRequests}}{{this.title}}{{/each}}</p>
-			<p>Donations: {{#each currentUser.profile.completedTransactions.donations}}{{/each}}</p>
-			<p>Receipts: {{#each currentUser.profile.completedTransactions.receipts}}{{/each}}</p>
+		<div class="page-header clearfix">
+			<h1 style="margin-bottom: 1em;">{{this.profile.name.first}} {{this.profile.name.last}}</h1>
+			<div class="col-sm-6">
+<!-- 				<ul class = "list-group">
+					<li class="list-group-item active"><b>{{this.profile.name.first}}'s Balance</b></li>
+					<li class="list-group-item">${{this.profile.balance}}</li>
+				</ul> -->
+				<ul class = "list-group">
+					<li class="list-group-item active"><b>{{this.profile.name.first}}'s Requests</b></li>
+						{{#each findRequests this._id}}
+							<li class="list-group-item">${{this.targetFunding}} for <a href="{{pathFor 'thisRequest'}}">{{this.title}}</a>
+								<span class="badge">${{this.currentFunding}}</span>
+							</li>
+						{{/each}}
+				</ul>
+<!-- 				<p><a href = "{{pathFor 'submitRequest'}}" class="btn btn-success"><b>Make New Request</b></a></p>
+ -->			</div>
+			<div class="col-sm-6">
+				<ul class="list-group">
+					<li class="list-group-item active"><b>{{this.profile.name.first}}'s Reciprocity</b></li>
+					<li class="list-group-item">
+						<p><b>
+						{{this.profile.name.first}} has given to {{this.profile.completedTransactions.donations.length}} people:
+						</b></p>
+						<p>{{#each this.profile.completedTransactions.donations}}
+							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: green;"></span>
+						{{/each}}</p>
+					</li>
+					<li class="list-group-item">
+						<p><b>
+						{{this.profile.completedTransactions.receipts.length}} donors have given to {{this.profile.name.first}}:
+						</b></p>
+						<p>{{#each this.profile.completedTransactions.receipts}}
+							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: red;"></span>
+						{{/each}}</p>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>

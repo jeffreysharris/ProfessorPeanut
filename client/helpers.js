@@ -41,4 +41,12 @@ if (Meteor.isClient) {
 	// 		} else return;
 	// 	}
 	});
+	Template.thisRequestor.helpers({
+		findRequests: function(thisRequestorID){
+			var myRequest = Meteor.subscribe('myRequest', thisRequestorID);
+			var requests = Requests.find({requestorID : thisRequestorID});
+			//myRequest.stop();
+			return requests;
+		}
+	});
 }

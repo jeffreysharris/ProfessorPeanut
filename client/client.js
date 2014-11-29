@@ -29,7 +29,7 @@ UI.registerHelper('dateConvert', function(date){
 	} else return;
 });
 
-//returns name of requestor, based on requestorID
+//returns  name of requestor, based on requestorID
 UI.registerHelper('requestorName', function( requestorID ){
 	var requestorSub = Meteor.subscribe('getUser', requestorID);
 	if( requestorSub.ready() ){
