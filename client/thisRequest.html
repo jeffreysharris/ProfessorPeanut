@@ -9,7 +9,7 @@
 						<p><b>
 						{{this.requestor.profile.name.first}} has given to {{uniqueRecipientCount currentUser._id}} people:
 						</b></p>
-						<p>{{#each uniqueRequestors currentUser._id}}
+						<p>{{#each uniqueRecipients currentUser._id}}
 							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #98FB98;"></span>
 						{{/each}}</p>
 					</li>

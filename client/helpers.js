@@ -229,4 +229,97 @@ if (Meteor.isClient) {
 		},
 
 	});
+
+	Template.thisRequest.helpers({
+		uniqueDonors: function( userId ){
+			var uniqueIDs = [];
+			if(userId !== null){
+				var donorSub = Meteor.subscribe( 'getDonors', userId );
+				var donors = Transactions.find({ recipientID :  userId });
+				donors.forEach(function(donor){
+					var push = true;
+					for (var i = 0; i < uniqueIDs.length; i++) {
+						if( uniqueIDs[i] === donor.donorID ){
+							push = false;
+						}
+					}
+					if( push ){
+						uniqueIDs.push(donor.donorID);
+					}
+				})
+				Session.set('headCount', uniqueIDs.length);
+				return uniqueIDs;
+			}else{
+				return;
+			}
+		},
+		uniqueRecipients: function( userId ){
+			var uniqueIDs = [];
+			if(userId !== null){
+				var recipientsub = Meteor.subscribe( 'getRecipients', userId );
+				var recipients = Transactions.find({ donorID :  userId }).fetch();
+				console.log(recipients);
+				recipients.forEach(function(recipient){
+					var push = true;
+					for (var i = 0; i < uniqueIDs.length; i++) {
+						if( uniqueIDs[i] === recipient.recipientID ){
+							push = false;
+						}
+					}
+					if( push ){
+						uniqueIDs.push(recipient.recipientID);
+					}
+				})
+				Session.set('headCount', uniqueIDs.length);
+				return uniqueIDs;
+			}else{
+				return;
+			}
+		},
+		uniqueDonorCount: function( userId ){
+			var uniqueIDs = [];
+			if(userId !== null){
+				var donorSub = Meteor.subscribe( 'getDonors', userId );
+				var donors = Transactions.find({ recipientID :  userId });
+				donors.forEach(function(donor){
+					var push = true;
+					for (var i = 0; i < uniqueIDs.length; i++) {
+						if( uniqueIDs[i] === donor.donorID ){
+							push = false;
+						}
+					}
+					if( push ){
+						uniqueIDs.push(donor.donorID);
+					}
+				})
+				return uniqueIDs.length;
+			}else{
+				return;
+			}
+		},
+		uniqueRecipientCount: function( userId ){
+			var uniqueIDs = [];
+			if(userId !== null){
+				var recipientsub = Meteor.subscribe( 'getRecipients', userId );
+				var recipients = Transactions.find({ donorID :  userId }).fetch();
+				//console.log(recipients);
+				recipients.forEach(function(recipient){
+					var push = true;
+					for (var i = 0; i <= uniqueIDs.length; i++) {
+						if( uniqueIDs[i] === recipient.recipientID ){
+							push = false;
+						}
+					}
+					if( push ){
+						uniqueIDs.push(recipient.recipientID);
+					}
+				})
+				console.log(uniqueIDs);
+				return uniqueIDs.length;
+			}else{
+				return;
+			}
+		},
+
+	});
 }
