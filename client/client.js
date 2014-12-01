@@ -1,5 +1,6 @@
 //start at first page of collection
 Session.setDefault('currentPage', 0);
+Session.setDefault('headCount', 0);
 
 //subscribes to record set of requests published by server as 'page'
 UI.registerHelper('request', function(){

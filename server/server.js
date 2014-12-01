@@ -15,10 +15,10 @@ Meteor.publish( 'getUser', function( userId ){
 	return Meteor.users.find({ _id : userId });
 });
 
-Meteor.publish( 'getDonors', function( transactionIDs ){
-	return Meteor.users.find({ _id : { $in: transactionIDs }});
+Meteor.publish( 'getDonors', function( userId ){
+	return Transactions.find({ recipientID :  userId });
 });
 
-Meteor.publish( 'getRecipients', function( transactionIDs ){
-	return Meteor.users.find({ _id : { $in: transactionIDs }});
+Meteor.publish( 'getRecipients', function( userId ){
+	return Transactions.find({ donorID :  userId });
 });

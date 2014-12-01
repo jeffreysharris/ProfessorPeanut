@@ -26,9 +26,9 @@
 						{{#if currentUser.profile.completedTransactions.donations}}
 							Thanks!
 						{{/if}}
-						You've given to {{currentUser.profile.completedTransactions.donations.length}} people:
+						You've given to {{uniqueRecipientCount currentUser._id}} people:
 						</b></p>
-						<p>{{#each currentUser.profile.completedTransactions.donations}}
+						<p>{{#each uniqueRecipients currentUser._id}}
 							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #98FB98;"></span>
 						{{/each}}</p>
 					</li>
@@ -37,9 +37,9 @@
 						{{#if currentUser.profile.completedTransactions.receipts}}
 							Show gratitude!
 						{{/if}}
-						{{currentUser.profile.completedTransactions.receipts.length}} donors answered your needs:
+						{{uniqueDonorCount currentUser._id}} donors answered your needs:
 						</b></p>
-						<p>{{#each currentUser.profile.completedTransactions.receipts}}
+						<p>{{#each uniqueDonors currentUser._id}}
 							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #FF6347;"></span>
 						{{/each}}</p>
 					</li>
