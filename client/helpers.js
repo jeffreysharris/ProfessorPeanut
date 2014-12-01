@@ -9,11 +9,28 @@ if (Meteor.isClient) {
 			return Meteor.user().profile.name.first;
 		},
 		findRequests: function(){
-			//Requests.remove({});
 			var myRequest = Meteor.subscribe('myRequest', Meteor.userId());
 			var requests = Requests.find({requestorID : Meteor.userId()});
-			//myRequest.stop();
 			return requests;
+		},
+		uniqueDonors: function( transactionIDs ){
+			if(transactionIDs !== null){
+				var donorSub = Meteor.subscribe('getDonors', transactionIDs);
+					var donors = Meteor.users.find({ _id : { $in: transactionIDs }});
+					console.log(donors.count);
+					return donors;
+			}else{
+				return;
+			}
+		},
+		uniqueRecipients: function( transactionIDs ){
+			if(transactionIDs !== null){
+				var recipientSub = Meteor.subscribe('getRecipients', transactionIDs);
+					var recipients = Meteor.users.find({ _id : { $in: transactionIDs }});
+					return recipients;
+			}else{
+				return;
+			}
 		}
 	});
 	Template.requests.helpers({
@@ -47,6 +64,24 @@ if (Meteor.isClient) {
 			var requests = Requests.find({requestorID : thisRequestorID});
 			//myRequest.stop();
 			return requests;
+		},
+		uniqueDonors: function( transactionIDs ){
+			if(transactionIDs !== null){
+				var donorSub = Meteor.subscribe('getDonors', transactionIDs);
+					var donors = Meteor.users.find({ _id : { $in: transactionIDs }});
+					return donors;
+			}else{
+				return;
+			}
+		},
+		uniqueRecipients: function( transactionIDs ){
+			if(transactionIDs !== null){
+				var recipientSub = Meteor.subscribe('getRecipients', transactionIDs);
+					var recipients = Meteor.users.find({ _id : { $in: transactionIDs }});
+					return recipients;
+			}else{
+				return;
+			}
 		}
 	});
 }

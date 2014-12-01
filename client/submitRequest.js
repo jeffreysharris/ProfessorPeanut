@@ -7,11 +7,12 @@ if (Meteor.isClient) {
 				title : template.find("#request_title").value,
 				description : template.find("#request_description").value,
 				duration : template.find("#request_duration").value,
-				startDate: moment().toDate(),
-				endDate: moment().add(template.find("#request_duration"), "days").toDate(),
+				startDate: new Date(moment()),
+				endDate: new Date(moment().add(template.find("#request_duration").value, "days")),
 				targetFunding : template.find("#request_targetFund").value,
 				requestorID: Meteor.user()._id
 			}
+
 			Requests.insert(new_request, function(err, record){
 				if(err){
 					console.warn(err.message);

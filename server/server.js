@@ -14,3 +14,11 @@ Meteor.publish('oneRequest', function( thisId){
 Meteor.publish( 'getUser', function( userId ){
 	return Meteor.users.find({ _id : userId });
 });
+
+Meteor.publish( 'getDonors', function( transactionIDs ){
+	return Meteor.users.find({ _id : { $in: transactionIDs }});
+});
+
+Meteor.publish( 'getRecipients', function( transactionIDs ){
+	return Meteor.users.find({ _id : { $in: transactionIDs }});
+});
