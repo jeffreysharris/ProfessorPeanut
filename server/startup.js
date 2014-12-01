@@ -1,7 +1,6 @@
 Meteor.startup(function (){
 
 	//REMOVE THESE TO RETAIN NEW DB ENTRIES
-
 	// console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
 	// Meteor.users.remove({});
 	// Requests.remove({});
@@ -58,8 +57,6 @@ Meteor.startup(function (){
 				});
 		}
 
-		console.log("before get random user for requestor");
-
 		//link the imported requestsIDs with users in Meteor.users
 		for( var i = 0; i < Requests.find({}).count(); i++ ){
 			var randomID = Meteor.call( 'getRandomUser' ).result._id;
@@ -75,8 +72,6 @@ Meteor.startup(function (){
 					}
 				});
 		}
-
-		console.log("before linking requests!");
 
 	 	//link requests to postedRequests[] for the selected user!
 	 	var allRequests = Requests.find({}).fetch();
@@ -105,11 +100,9 @@ Meteor.startup(function (){
 	 			)};
 	}
 
-	console.log("before transactions");
-
 	//generate transactions
 	if( Transactions.find().count() === 0 ){
-		var numTransactions = 100;
+		var numTransactions = 200;
 		var maxAmount = 5.00;
 		console.log('No Transaction History! Generating ' + numTransactions + ' fake transactions...');
 
