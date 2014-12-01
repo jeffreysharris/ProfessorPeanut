@@ -7,17 +7,17 @@
 					<li class="list-group-item active"><b>{{this.requestor.profile.name.first}}'s Reciprocity</b></li>
 					<li class="list-group-item">
 						<p><b>
-						{{this.requestor.profile.name.first}} has given to {{uniqueDonorCount currentUser._id}} people:
+						{{this.requestor.profile.name.first}} has given to {{uniqueRecipientCount this.requestor._id}} people:
 						</b></p>
-						<p>{{#each uniqueDonors currentUser._id}}
+						<p>{{#each uniqueRecipients this.requestor._id}}
 							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #98FB98;"></span>
 						{{/each}}</p>
 					</li>
 					<li class="list-group-item">
 						<p><b>
-						{{uniqueRecipientCount currentUser._id}} donors have given to {{this.requestor.profile.name.first}}:
+						{{uniqueDonorCount this.requestor._id}} donors have given to {{this.requestor.profile.name.first}}:
 						</b></p>
-						<p>{{#each uniqueRecipients currentUser._id}}
+						<p>{{#each uniqueDonors this.requestor._id}}
 							<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: #FF6347;"></span>
 						{{/each}}</p>
 					</li>
