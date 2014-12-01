@@ -1,4 +1,4 @@
-Professor_Peanut
+ProfessorPeanut
 ================
 
-microcharity web app
+ProfessorPeanut, or simply Peanuts, is a functional, live prototype for a microcharity platform.
