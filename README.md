@@ -21,4 +21,4 @@ You'll need a testbed of dummy data, which are found in the /private folder as s
   
 	  meteor
 
-If all went smoothly, you should see dummy data populating, and a splash screen. Feel free to create an account using the sign-in link in the upper left, and test the functionality. If you don't want the server to erase everything and redo all dummy transactions, remember to re-comment-out those functions in startup.js.
+If all went smoothly, you should see dummy data populating, and a splash screen. Feel free to create an account using the sign-in link in the upper left, and test the functionality.
