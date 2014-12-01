@@ -11,23 +11,23 @@ Peanuts is our proof-of-concept based on these results.
 
 To test Peanuts locally, you'll need the Meteor framework which is available via a terminal command:
 
-  curl https://install.meteor.com/ | sh
+	  curl https://install.meteor.com/ | sh
 
 Windows installation is a bit more complicated. You can learn more here: https://www.meteor.com/install.
 
 You'll need a testbed of dummy data, which are found in the /private folder as seed_ requests and users json files. Navigate to the Peanut folder in the Terminal, and start the meteor server with the simple command:
   
-  meteor
+	  meteor
   
 Then, open a new tab and enter:
 
-  mongoimport --db meteor --collection requests --type json --file /private/seed_requests.json
---jsonArray
+	  mongoimport --db meteor --collection requests --type json --file /private/seed_requests.json
+	--jsonArray
 
 Do the same for seed_users:
 
-  mongoimport --db meteor --collection users --type json --file /private/seed_users.json
---jsonArray
+	  mongoimport --db meteor --collection users --type json --file /private/seed_users.json
+	--jsonArray
 
 Finally, open the /server/startup.js and ensure the top four commands are uncommented:
 
