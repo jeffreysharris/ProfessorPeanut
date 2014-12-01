@@ -20,26 +20,5 @@ Windows installation is a bit more complicated. You can learn more here: https:/
 You'll need a testbed of dummy data, which are found in the /private folder as seed_ requests and users json files. Navigate to the Peanut folder in the Terminal, and start the meteor server with the simple command:
   
 	  meteor
-  
-Then, open a new tab and enter:
-
-	  mongoimport --db meteor --collection requests --type json --file /private/seed_requests.json
-	--jsonArray
-
-Do the same for seed_users:
-
-	  mongoimport --db meteor --collection users --type json --file /private/seed_users.json
-	--jsonArray
-
-Finally, open the /server/startup.js and ensure the top four commands are uncommented:
-
-	REMOVE THESE TO RETAIN NEW DB ENTRIES
-
-	console.log('Clearing database... check server/server.js[ln:5] to stop this from happening.')
-	Meteor.users.remove({});
-	Requests.remove({});
-	Transactions.remove({});
-
-Then, restart the server and/or refresh the app. The app can be viewed in the browser at localhost:3000.
 
 If all went smoothly, you should see dummy data populating, and a splash screen. Feel free to create an account using the sign-in link in the upper left, and test the functionality. If you don't want the server to erase everything and redo all dummy transactions, remember to re-comment-out those functions in startup.js.
