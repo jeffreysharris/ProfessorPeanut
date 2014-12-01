@@ -9,6 +9,8 @@ Peanuts is built on studies of microcharitable, peer-to-peer donations via the w
 
 Peanuts is our proof-of-concept based on these results.
 
+The live demo can be viewed at peanuts.meteor.com.
+
 To test Peanuts locally, you'll need the Meteor framework which is available via a terminal command:
 
 	  curl https://install.meteor.com/ | sh
